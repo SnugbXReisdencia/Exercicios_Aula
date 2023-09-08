@@ -14,7 +14,7 @@ int main(void)
     do
     {
         system("clear");
-        
+
         cout << "Digite a matricula: ";
         cin >> valor;
         aluno.insert(aluno.begin(),valor);
@@ -41,7 +41,8 @@ int main(void)
     for (int i = 0; i < boletin.size(); i++){
         cout << "Matricula  Nota1   Nota2   Nota3   Media" << endl;
         cout << "================================================" << endl;
-        cout << boletin[i][0] << "   " << boletin[i][1] << "   " << boletin[i][2] << "   " << boletin[i][3] << "   " << (boletin[i][1] + boletin[i][2] + boletin[i][3]) / 3 << endl;
+        cout << "   " <<boletin[i][0] << "   ||   " << boletin[i][1] << "   ||   " << boletin[i][2]
+         << "   ||   " << boletin[i][3] << "   ||   " << (boletin[i][1] + boletin[i][2] + boletin[i][3]) / 3 << endl;
     }
     
     return 0;
