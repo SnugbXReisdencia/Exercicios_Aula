@@ -27,11 +27,11 @@ class My_int{
         }
 
         void operator=(int x){
-            this->num = x;
+            this->num = x+1;
         }
-        // int operator=(My_int x){
-        //     return this->num = x.getNum();
-        // }
+        void operator=(My_int x){
+            this->num = x.getNum()+1;
+        }
 
 };
 
@@ -44,7 +44,7 @@ int main(){
 
     z = y;
 
-    cout << "O valor de X: " << z.getNum() << endl;
+    cout << "O valor de Z: " << z.getNum() << endl;
 
     pause();
 }
