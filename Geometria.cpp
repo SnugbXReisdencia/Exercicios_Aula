@@ -24,6 +24,12 @@ class Ponto{
 
         float distancia(Ponto p);
 
+        void operator=(Ponto p);
+
+        bool operator==(Ponto p);
+
+        Ponto operator+(Ponto p);
+
         string toString();
 };
 
@@ -65,8 +71,19 @@ float Ponto::distancia(Ponto p) {
     return sqrtf((pow((p.getX() - this->getX()),2)) + (pow((p.getY() - this->getY()),2)));
 }
 
+void Ponto::operator=(Ponto p){
+    x = p.getX();
+    y = p.getY();
+}
+bool Ponto::operator==(Ponto p){
+    return x == p.getX() && y == p.getY();
+}
+
+Ponto Ponto::operator+(Ponto p){
+    return Ponto(x + p.getX(), y + p.getY());
+}
 string Ponto::toString(){
-    return "(X:" + to_string(x) + ", Y:" + to_string(y) + ")";
+    return "(X: " + to_string(x) + ", Y: " + to_string(y) + ")";
 }
 
 
@@ -86,6 +103,12 @@ class Poligono{
         void le_addPonto();
 
         float perimetro();
+
+        void operator=(Poligono p);
+        
+        bool operator==(Poligono p);
+
+        Poligono operator+(Poligono p);
 
         string toString();
 };
@@ -140,6 +163,36 @@ float Poligono::perimetro(){
     return per;
 }
 
+void Poligono::operator=(Poligono p){
+    this->pontos = p.pontos;
+}
+
+bool Poligono::operator==(Poligono p){
+
+    if (pontos.size() != p.pontos.size()){
+        return false;
+    }
+
+    for (size_t i = 0; i < pontos.size(); i++){
+        if (!(pontos[i] == p.pontos[i])) {
+            return false;
+        }
+    }
+
+    return true;
+}
+
+Poligono Poligono::operator+(Poligono p){
+    Poligono novo;
+    novo.pontos = this->pontos;
+    
+    for (Ponto p1 : p.pontos){
+        novo.addPonto(p1);
+    }
+
+    return novo;
+}
+
 string Poligono::toString(){
     int tamanho = this->pontos.size();
     string aux = "Coordenadas: \n";
@@ -149,4 +202,29 @@ string Poligono::toString(){
     return aux;
 }
 
+int main()
+{
+    Poligono p, p2;
+    p.setPontos({Ponto(0,0),Ponto(1,0),Ponto(1,1),Ponto(0,1)});
+    p2.setPontos({Ponto(1,1),Ponto(2,1),Ponto(2,2),Ponto(1,2)});
+    
+    cout << "Poligono 1: " << endl;
+    cout << p.toString() << endl;
+    cout << "Poligono 2: " << endl;
+    cout << p2.toString() << endl;
+
+    Poligono p3 = p + p2;
+
+    cout << "Poligono 1 + Poligono 2:" << p3.toString() << endl;
+
+    cout << "Perimetro do poligono 1: " << p.perimetro() << endl;
+
+    cout << "Perimetro do poligono 2: " << p2.perimetro() << endl;
+
+    cout << "Perimetro do poligono 3: " << p3.perimetro() << endl;
+
+    p == p2 ? cout << "Poligono 1 == Poligono 2: Sim" << endl : cout << "Poligono 1 == Poligono 2: Nao" << endl;
+    
+    return 0;
+}
 
